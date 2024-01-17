@@ -1,4 +1,5 @@
 import os
+import subprocess
 import time
 from datetime import datetime
 
@@ -8,6 +9,7 @@ from lib.database import Database
 
 db_path = f"{os.path.expanduser('~')}/wslfp"
 db = Database(f"{db_path}/wslfp.db")
+
 
 def execute(command, args=None, read=False):
     return os.popen(command % args if args else command).read()
@@ -22,6 +24,12 @@ def get_portproxy_list():
 
 
 def main():
+
+    try:
+        subprocess.run(["clear"], check=True)
+    except:
+        subprocess.run(["cls"])
+
     print(INTRO)
     time.sleep(2)
 
@@ -37,7 +45,7 @@ def main():
             print("deleted succesfully")
 
     except:
-        print("no section found...\n\r starting new port proxy section")
+        print("no section found...\n\rstarting new port proxy section")
 
     wsl_ip = get_wsl_ip()[:-1]
     for port in ports:
